@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SVG Assets</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font: 15px/1.7 -apple-system, "PingFang SC", system-ui, sans-serif;
+         max-width: 860px; margin: 48px auto; padding: 0 20px; }
+  h1 { font-size: 20px; margin-bottom: 4px; }
+  p.sub { opacity: .6; margin-top: 0; }
+  code { background: rgba(127,127,127,.15); padding: 2px 6px; border-radius: 4px; }
+  ul { padding-left: 20px; }
+  li { margin: 6px 0; }
+  a { text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .empty { opacity: .5; font-style: italic; }
+</style>
+</head>
+<body>
+  <h1>SVG Assets</h1>
+  <p class="sub">GitHub Pages 静态资源托管 · <code>dyl6170.github.io</code></p>
+  <p>访问地址：<code>https://dyl6170.github.io/assets/images/&lt;文件名&gt;.svg</code></p>
+  <h2 style="font-size:16px;margin-top:28px;">文件列表</h2>
+  <ul id="list"><li class="empty">尚无文件 —— 把 SVG 放进 assets/images/ 即可</li></ul>
+  <script>
+    // 读取目录清单（手动维护 manifest.json 或后续接入 GitHub API）
+    fetch('assets/images/manifest.json')
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (!d || !d.length) return;
+        const ul = document.getElementById('list');
+        ul.innerHTML = d.map(n =>
+          `<li><a href="assets/images/${n}">${n}</a></li>`).join('');
+      })
+      .catch(() => {});
+  </script>
+</body>
+</html>
